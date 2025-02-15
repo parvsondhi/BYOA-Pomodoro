@@ -7,7 +7,6 @@ let timerId = null;
 const minutesDisplay = document.getElementById('minutes');
 const secondsDisplay = document.getElementById('seconds');
 const startButton = document.getElementById('start');
-const pauseButton = document.getElementById('pause');
 const resetButton = document.getElementById('reset');
 const modeText = document.getElementById('mode-text');
 const workModeButton = document.getElementById('work-mode');
@@ -46,12 +45,12 @@ function startTimer() {
                 startTimer();
             }
         }, 1000);
+        startButton.textContent = 'Pause';
+    } else {
+        clearInterval(timerId);
+        timerId = null;
+        startButton.textContent = 'Start';
     }
-}
-
-function pauseTimer() {
-    clearInterval(timerId);
-    timerId = null;
 }
 
 function resetTimer() {
@@ -61,6 +60,7 @@ function resetTimer() {
     timeLeft = workTime;
     modeText.textContent = 'Work Time';
     updateDisplay();
+    startButton.textContent = 'Start';
 }
 
 function setWorkMode() {
@@ -82,7 +82,6 @@ function setRestMode() {
 }
 
 startButton.addEventListener('click', startTimer);
-pauseButton.addEventListener('click', pauseTimer);
 resetButton.addEventListener('click', resetTimer);
 
 // Initialize display
